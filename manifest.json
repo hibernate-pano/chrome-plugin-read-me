@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "快速阅读模式",
+  "version": "1.0",
+  "description": "为网页提供快速阅读模式",
+  "permissions": ["activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["reader.css"]
+    }
+  ],
+  "action": {
+    "default_icon": "icon.png"
+  }
+}

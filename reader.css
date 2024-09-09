@@ -1,0 +1,130 @@
+body.reader-mode {
+  overflow: hidden;
+}
+
+.reader-mode-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f8f8f8;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.reader-mode-overlay img {
+  width: calc(100% + 40px); /* 增加宽度以抵消内边距 */
+  max-width: none; /* 覆盖之前的 max-width 设置 */
+  margin: 20px -20px; /* 使用负 margin 来扩展到内边距区域 */
+  object-fit: contain;
+  max-height: 80vh; /* 限制最大高度为视口高度的80% */
+}
+
+.reader-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f8f8f8;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+#reader-mode-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+#reader-mode-header {
+  margin-bottom: 30px;
+}
+
+#reader-mode-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#reader-mode-body {
+  font-size: 18px;
+  width: 100%; /* 确保内容区域占满容器宽度 */
+}
+
+#reader-mode-body p {
+  margin: 1em 0; /* 给段落添加上下margin */
+}
+
+#reader-mode-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#reader-mode-panel button {
+  display: block;
+  margin: 5px 0;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#reader-mode-panel button:hover {
+  background-color: #45a049;
+}
+
+.reader-mode.dark-mode {
+  background-color: #333;
+  color: #f8f8f8;
+}
+
+.reader-mode.serif-font {
+  font-family: Georgia, serif;
+}
+
+.reader-mode.large-line-height {
+  line-height: 2;
+}
+
+.reader-mode.narrow-width #reader-mode-content {
+  max-width: 600px;
+}
+
+/* 代码块样式 */
+.reader-mode pre, .reader-mode code {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.reader-mode.dark-mode pre, .reader-mode.dark-mode code {
+  background-color: #2d2d2d;
+  border-color: #555;
+  color: #f8f8f8;
+}
+
+/* 图片样式 */
+.reader-mode img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
