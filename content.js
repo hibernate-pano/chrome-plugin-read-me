@@ -20,12 +20,17 @@ function toggleReaderMode() {
   console.log('Toggle reader mode called');
   const body = document.body;
   body.classList.toggle('reader-mode');
+  // 检查是否包含reader-mode类
   console.log('Reader mode class toggled:', body.classList.contains('reader-mode'));
   if (body.classList.contains('reader-mode')) {
+    // 创建阅读模式内容
     createReaderModeContent();
+    // 创建控制面板
     createControlPanel();
   } else {
+    // 移除阅读模式内容
     removeReaderModeContent();
+    // 移除控制面板
     removeControlPanel();
   }
 }
