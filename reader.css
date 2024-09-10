@@ -10,10 +10,12 @@ body.reader-mode {
   bottom: 0;
   background-color: #f8f8f8;
   color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  line-height: normal;
   overflow-y: auto;
   z-index: 9999;
+  transition: line-height 0.3s ease, font-size 0.3s ease;
+  font-size: 16px; /* 设置一个基础字体大小 */
 }
 
 .reader-mode-overlay img {
@@ -22,6 +24,18 @@ body.reader-mode {
   margin: 20px -20px; /* 使用负 margin 来扩展到内边距区域 */
   object-fit: contain;
   max-height: 80vh; /* 限制最大高度为视口高度的80% */
+}
+
+.reader-mode-overlay.songti {
+  font-family: 'Songti SC', 'SimSun', serif;
+}
+
+.reader-mode-overlay.kaiti {
+  font-family: 'Kaiti SC', 'KaiTi', serif;
+}
+
+.reader-mode-overlay.heiti {
+  font-family: 'Heiti SC', 'SimHei', sans-serif;
 }
 
 .reader-mode {
@@ -39,9 +53,10 @@ body.reader-mode {
 }
 
 #reader-mode-content {
-  max-width: 800px;
+  max-width: 800px; /* 默认宽度 */
   margin: 0 auto;
   padding: 40px 20px;
+  transition: max-width 0.3s ease; /* 添加过渡效果 */
 }
 
 #reader-mode-header {
@@ -54,8 +69,9 @@ body.reader-mode {
 }
 
 #reader-mode-body {
-  font-size: 18px;
+  font-size: 18px; /* 默认正文字体大小 */
   width: 100%; /* 确保内容区域占满容器宽度 */
+  transition: font-size 0.3s ease; /* 添加字体大小变化的过渡效果 */
 }
 
 #reader-mode-body p {
@@ -70,6 +86,7 @@ body.reader-mode {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 280px; /* 增加控制面板宽度以适应背景颜色选项 */
 }
 
 #reader-mode-panel button {
@@ -87,6 +104,37 @@ body.reader-mode {
   background-color: #45a049;
 }
 
+#reader-mode-panel input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+}
+
+#reader-mode-panel select {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  font-size: 14px;
+}
+
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.lazy-image[src] {
+  opacity: 1;
+}
+
+#image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
+
 .reader-mode.dark-mode {
   background-color: #333;
   color: #f8f8f8;
@@ -96,10 +144,7 @@ body.reader-mode {
   font-family: Georgia, serif;
 }
 
-.reader-mode.large-line-height {
-  line-height: 2;
-}
-
+/* 可以删除之前的 .large-line-height 类 */
 .reader-mode.narrow-width #reader-mode-content {
   max-width: 600px;
 }
@@ -127,4 +172,31 @@ body.reader-mode {
   height: auto;
   display: block;
   margin: 20px auto;
+}
+
+#reader-mode-panel div {
+  margin-bottom: 15px;
+}
+
+#bg-color-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.bg-color-option {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.bg-color-option:hover {
+  transform: scale(1.1);
+}
+
+.bg-color-option[data-color="#333333"] {
+  border-color: #f8f8f8;
 }
