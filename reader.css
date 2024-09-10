@@ -74,8 +74,37 @@ body.reader-mode {
   transition: font-size 0.3s ease; /* 添加字体大小变化的过渡效果 */
 }
 
-#reader-mode-body p {
-  margin: 1em 0; /* 给段落添加上下margin */
+#reader-mode-body p, #reader-mode-body ul, #reader-mode-body ol {
+  margin: 1em 0;
+}
+
+#reader-mode-body ul, #reader-mode-body ol {
+  padding-left: 2em;
+}
+
+#reader-mode-body li {
+  margin: 0.5em 0;
+}
+
+#reader-mode-body a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+#reader-mode-body a:hover {
+  text-decoration: underline;
+}
+
+#reader-mode-body strong {
+  font-weight: bold; /* 加粗 */
+}
+
+#reader-mode-body em {
+  font-style: italic; /* 斜体 */
+}
+
+#reader-mode-body u {
+  text-decoration: underline; /* 下划线 */
 }
 
 #reader-mode-panel {
@@ -86,7 +115,7 @@ body.reader-mode {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 280px; /* 增加控制面板宽度以适应背景颜色选项 */
+  width: 280px; /* 增加控制面板宽度以适应背��颜色选项 */
 }
 
 #reader-mode-panel button {
@@ -174,6 +203,13 @@ body.reader-mode {
   margin: 20px auto;
 }
 
+.reader-mode-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
+
 #reader-mode-panel div {
   margin-bottom: 15px;
 }
@@ -199,4 +235,35 @@ body.reader-mode {
 
 .bg-color-option[data-color="#333333"] {
   border-color: #f8f8f8;
+}
+
+/* 在文件末尾添加以下样式 */
+
+#reader-mode-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+#reader-mode-body th, #reader-mode-body td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#reader-mode-body th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#reader-mode-body pre, #reader-mode-body code {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

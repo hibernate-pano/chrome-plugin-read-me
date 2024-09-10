@@ -56,7 +56,7 @@ function createReaderModeContent() {
   setupLazyLoading();
 }
 
-// 提取主要内容
+// 修改 extractMainContent 函数
 function extractMainContent() {
   console.log('Extracting main content');
   const selectors = [
@@ -85,37 +85,37 @@ function extractMainContent() {
       }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       const tagName = node.tagName.toLowerCase();
-      if (tagName === 'img') {
-        const img = document.createElement('img');
-        img.dataset.src = node.src; // 使用 data-src 存储原始 src
-        img.alt = node.alt;
-        img.className = 'lazy-image';
-        filteredContent.appendChild(img);
-      } else if (['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote'].includes(tagName)) {
+      const allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'strong', 'em', 'u', 'b', 'i', 'a', 'img', 'pre', 'code', 'table', 'tr', 'td', 'th', 'thead', 'tbody'];
+      
+      if (allowedTags.includes(tagName)) {
         const newElement = document.createElement(tagName);
+        
+        // 复制属性
+        Array.from(node.attributes).forEach(attr => {
+          newElement.setAttribute(attr.name, attr.value);
+        });
+        
+        // 特殊处理图片
+        if (tagName === 'img') {
+          newElement.src = node.src;
+          newElement.alt = node.alt;
+          newElement.className = 'reader-mode-image';
+        }
+        
+        // 递归处理子元素
         Array.from(node.childNodes).forEach(child => filterContent(child));
-        if (newElement.innerHTML.trim() !== '') {
+        
+        if (newElement.innerHTML.trim() !== '' || tagName === 'img') {
           filteredContent.appendChild(newElement);
         }
       } else if (['div', 'section', 'article'].includes(tagName)) {
-        const wrapper = document.createElement('div');
+        // 对于容器元素，我们直接处理其子元素
         Array.from(node.childNodes).forEach(child => filterContent(child));
-        if (wrapper.innerHTML.trim() !== '') {
-          filteredContent.appendChild(wrapper);
-        }
       }
     }
   }
   
   Array.from(mainContent.childNodes).forEach(node => filterContent(node));
-  
-  // 移除连续的空白段落
-  const paragraphs = filteredContent.querySelectorAll('p');
-  paragraphs.forEach(p => {
-    if (p.innerHTML.trim() === '') {
-      p.remove();
-    }
-  });
   
   console.log('Filtered content:', filteredContent.innerHTML.substring(0, 100) + '...');
   return filteredContent.innerHTML;
@@ -254,20 +254,21 @@ function changeWidth(event) {
   widthValue.textContent = newWidth;
 }
 
-// 添加懒加载功能
+// 修改 setupLazyLoading 函数
 function setupLazyLoading() {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target;
-        img.src = img.dataset.src;
-        img.classList.remove('lazy-image');
+        if (!img.src && img.dataset.src) {
+          img.src = img.dataset.src;
+        }
         observer.unobserve(img);
       }
     });
   });
 
-  document.querySelectorAll('.lazy-image').forEach(img => {
+  document.querySelectorAll('.reader-mode-image').forEach(img => {
     observer.observe(img);
   });
 }
