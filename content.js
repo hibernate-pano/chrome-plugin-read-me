@@ -20,17 +20,13 @@ function toggleReaderMode() {
   console.log('Toggle reader mode called');
   const body = document.body;
   body.classList.toggle('reader-mode');
-  // 检查是否包含reader-mode类
   console.log('Reader mode class toggled:', body.classList.contains('reader-mode'));
+  
   if (body.classList.contains('reader-mode')) {
-    // 创建阅读模式内容
     createReaderModeContent();
-    // 创建控制面板
     createControlPanel();
   } else {
-    // 移除阅读模式内容
     removeReaderModeContent();
-    // 移除控制面板
     removeControlPanel();
   }
 }
@@ -54,14 +50,14 @@ function createReaderModeContent() {
   overlay.appendChild(content);
   document.body.appendChild(overlay);
 
-  // 在这里创建控制面板，确保它被添加到 overlay 中
+  // 创建控制面板并添加到 overlay 中
   createControlPanel(overlay);
 
-  // 设置懒加载
+  // 设置图片懒加载
   setupLazyLoading();
 }
 
-// 修改 extractMainContent 函数
+// 提取主要内容
 function extractMainContent() {
   console.log('Extracting main content');
   const selectors = [
@@ -70,18 +66,21 @@ function extractMainContent() {
     '.content', '#content'
   ];
   
+  // 尝试找到主要内容区域
   let mainContent = null;
   for (let selector of selectors) {
     mainContent = document.querySelector(selector);
     if (mainContent) break;
   }
   
+  // 如果没有找到主要内容区域，使用整个 body
   if (!mainContent) {
     mainContent = document.body;
   }
   
   const filteredContent = document.createElement('div');
   
+  // 递归过滤内容
   function filterContent(node) {
     if (node.nodeType === Node.TEXT_NODE) {
       const trimmedText = node.textContent.trim();
@@ -114,7 +113,7 @@ function extractMainContent() {
           filteredContent.appendChild(newElement);
         }
       } else if (['div', 'section', 'article'].includes(tagName)) {
-        // 对于容器元素，我们直接处理其子元素
+        // 对于容器元素，直接处理其子元素
         Array.from(node.childNodes).forEach(child => filterContent(child));
       }
     }
@@ -197,7 +196,7 @@ console.log('Content script loaded');
 createFloatingIcon();
 console.log('Floating icon created');
 
-// 添加这个函数来检查样式是否正确加载
+// 检查样式是否正确加载
 function checkStyles() {
   const styles = window.getComputedStyle(document.body);
   console.log('Body background color:', styles.backgroundColor);
@@ -207,7 +206,7 @@ function checkStyles() {
 // 在页面加载完成后执行样式检查
 window.addEventListener('load', checkStyles);
 
-// 以下函数需要在reader.css中实现相应的样式类
+// 更改背景颜色
 function changeBgColor(event) {
   const color = event.target.dataset.color;
   const overlay = document.querySelector('.reader-mode-overlay');
@@ -222,6 +221,7 @@ function changeBgColor(event) {
   panel.style.backgroundColor = color === '#333333' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
 }
 
+// 更改字体
 function changeFont(event) {
   const overlay = document.querySelector('.reader-mode-overlay');
   const selectedFont = event.target.value;
@@ -232,6 +232,7 @@ function changeFont(event) {
   }
 }
 
+// 更改字体大小
 function changeFontSize(event) {
   const readerModeBody = document.getElementById('reader-mode-body');
   const fontSizeValue = document.getElementById('font-size-value');
@@ -241,6 +242,7 @@ function changeFontSize(event) {
   fontSizeValue.textContent = newFontSize;
 }
 
+// 更改行高
 function changeLineHeight(event) {
   const overlay = document.querySelector('.reader-mode-overlay');
   const lineHeightValue = document.getElementById('line-height-value');
@@ -250,6 +252,7 @@ function changeLineHeight(event) {
   lineHeightValue.textContent = newLineHeight;
 }
 
+// 更改内容宽度
 function changeWidth(event) {
   const content = document.getElementById('reader-mode-content');
   const widthValue = document.getElementById('width-value');
@@ -259,7 +262,7 @@ function changeWidth(event) {
   widthValue.textContent = newWidth;
 }
 
-// 修改 setupLazyLoading 函数
+// 设置图片懒加载
 function setupLazyLoading() {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
